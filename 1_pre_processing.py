@@ -9,11 +9,13 @@ from tsfresh import extract_features
 from tsfresh.utilities.dataframe_functions import get_range_values_per_column, impute_dataframe_range
 
 # %% Load data.
-connection = sqlite3.connect('data/transactions.db')
+c = sqlite3.connect('data/transactions.db')
+c.create_function('log', 1, np.log)
 with open('sql/melted_time_series.sql', 'r') as f:
-    transactions = pd.read_sql(f.read(), connection)
+    transactions = pd.read_sql(f.read(), c)
 with open('sql/scores.sql', 'r') as f:
-    scores = pd.read_sql(f.read(), connection)
+    scores = pd.read_sql(f.read(), c)
+c.close()
 
 # %% time series dataset
 x_ts = np.stack([
@@ -38,8 +40,8 @@ index = scores[['customer_id']].values
 x_cs = np.reshape(x_ts, (x_ts.shape[0] * x_ts.shape[1], x_ts.shape[2]))
 # extract features
 # Reference:
-# [1] Christ, Maximilian, Andreas W. Kempa-Liehr, and Michael Feindt. "Distributed and parallel time series feature
-#     extraction for industrial big data applications." arXiv preprint arXiv:1610.07717 (2016).
+# Christ, Maximilian, Andreas W. Kempa-Liehr, and Michael Feindt. "Distributed and parallel time series feature
+# extraction for industrial big data applications." arXiv preprint arXiv:1610.07717 (2016).
 x_cs = np.hstack([
     np.repeat(index, x_ts.shape[1], axis=0),
     np.tile(np.arange(x_ts.shape[1])[:, np.newaxis], (x_ts.shape[0], 1)),
@@ -64,17 +66,17 @@ x_cs_test_std = x_cs_scaler.transform(x_cs_test)
 x_cs_test_std = pd.DataFrame(data=x_cs_test_std, columns=filtered_features)
 
 # %% Export.
-with open('raw/2_ts_scaler.pkl', 'wb') as f:
+with open('raw/1_ts_scaler.pkl', 'wb') as f:
     pickle.dump(x_ts_scaler, f)
-with open('raw/2_cs_scaler.pkl', 'wb') as f:
+with open('raw/1_cs_scaler.pkl', 'wb') as f:
     pickle.dump(x_cs_scaler, f)
-with open('raw/2_y_scaler.pkl', 'wb') as f:
+with open('raw/1_y_scaler.pkl', 'wb') as f:
     pickle.dump(y_scaler, f)
-with open('raw/2_ts_training_normalized.pkl', 'wb') as f:
+with open('raw/1_ts_training_normalized.pkl', 'wb') as f:
     pickle.dump([x_ts_train_std, y_train_std], f)
-with open('raw/2_ts_testing_normalized.pkl', 'wb') as f:
+with open('raw/1_ts_testing_normalized.pkl', 'wb') as f:
     pickle.dump([x_ts_test_std, y_test_std], f)
-with open('raw/2_cs_training_normalized.pkl', 'wb') as f:
+with open('raw/1_cs_training_normalized.pkl', 'wb') as f:
     pickle.dump([x_cs_train_std, y_train_std], f)
-with open('raw/2_cs_testing_normalized.pkl', 'wb') as f:
+with open('raw/1_cs_testing_normalized.pkl', 'wb') as f:
     pickle.dump([x_cs_test_std, y_test_std], f)

@@ -1,7 +1,7 @@
 select c.customer_id,
-    floor(max(min(
+    cast(max(min(
         julianday(t.date_0) - julianday('2018-01-01'), julianday('2020-05-12') - julianday('2018-01-01')
-    ), 0) / 7) as period,
+    ), 0) / 7 as int) as period,
     sum(t.weight * t.quality) / sum(t.weight) as quality,
     sum(t.weight * t.price) / sum(t.weight) as price,
     log(sum(t.weight) + 1) as ln_weight

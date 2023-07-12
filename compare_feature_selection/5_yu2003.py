@@ -14,11 +14,11 @@ def entropy_d(x0):
 
 
 # %% Load data
-with open('raw/2_cs_training_normalized.pkl', 'rb') as f:
+with open('raw/1_cs_training_normalized.pkl', 'rb') as f:
     x, y = pickle.load(f)
 feature_names = x.columns
 x_mat, y_mat = x.values, y.flatten()
-with open('raw/2_cs_testing_normalized.pkl', 'rb') as f:
+with open('raw/1_cs_testing_normalized.pkl', 'rb') as f:
     x_test, y_test = pickle.load(f)
 
 # %% Fast correlation-based feature selection
@@ -56,7 +56,6 @@ s_list = s_list[s_list_mask, :]
 
 # %% Export results.
 selected_features = feature_names[list(s_list[:, 0])]
-print(selected_features)
 with open('raw/5_feature_importance_yu2003.pkl', 'wb') as f:
     pickle.dump(dict(zip(selected_features, s_list[:, 1])), f)
 with open('raw/5_feature_yu2003_training_normalized.pkl', 'wb') as f:

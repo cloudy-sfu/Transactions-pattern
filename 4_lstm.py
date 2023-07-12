@@ -4,9 +4,9 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 
 # %% Load data.
-with open('raw/2_ts_training_normalized.pkl', 'rb') as f:
+with open('raw/1_ts_training_normalized.pkl', 'rb') as f:
     x, y = pickle.load(f)
-with open('raw/2_ts_testing_normalized.pkl', 'rb') as f:
+with open('raw/1_ts_testing_normalized.pkl', 'rb') as f:
     x_test, y_test = pickle.load(f)
 
 # %% Train and test.
@@ -28,12 +28,12 @@ history = my_model.fit(
 )
 y_hat = my_model.predict(x)
 score_train = r2_score(y, y_hat)
-print(score_train)  # 0.6782544412167426
+print(score_train)
 
 # %% Predict on testing set.
 y_test_hat = my_model.predict(x_test)
 score_test = r2_score(y_test, y_test_hat)
-print(score_test)  # 0.6970039723167362
+print(score_test)
 
 # %% Export.
 with open('raw/4_estimator_lstm.pkl', 'wb') as f:

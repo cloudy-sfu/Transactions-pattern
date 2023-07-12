@@ -22,13 +22,15 @@ with open('raw/2_feature_rf_testing_normalized.pkl', 'rb') as f:
 
 # %% Get training score.
 score = optimizer.score(x, y.ravel())
-print(score)  # 0.7849286958169442
+print(score)  # 0.7719034330549572
 
 # %% Predict on testing set.
 y_test_hat = optimizer.predict(x_test)
 score_test = optimizer.score(x_test, y_test.ravel())
-print(score_test)  # 0.6940042766728589
+print(score_test)  # 0.6955534593528232
 
 # %% Export.
+with open('raw/9_feature_rf_stacking.pkl', 'wb') as f:
+    pickle.dump(optimizer, f)
 with open('raw/9_feature_rf_stacking_prediction.pkl', 'wb') as f:
     pickle.dump(y_test_hat, f)

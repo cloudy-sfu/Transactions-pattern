@@ -10,9 +10,9 @@ from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 
 # %% Load data.
-with open('raw/2_cs_training_normalized.pkl', 'rb') as f:
+with open('raw/1_cs_training_normalized.pkl', 'rb') as f:
     x, y = pickle.load(f)
-with open('raw/2_cs_testing_normalized.pkl', 'rb') as f:
+with open('raw/1_cs_testing_normalized.pkl', 'rb') as f:
     x_test, y_test = pickle.load(f)
 
 # %% Find the range of optimal hyperparameter of random forest.

@@ -1,5 +1,5 @@
 import pickle
-from deepforest import CascadeForestRegressor  # pip install deep-forest
+from deepforest import CascadeForestRegressor
 from sklearn.model_selection import KFold
 from skopt import BayesSearchCV
 
@@ -20,12 +20,12 @@ optimizer = BayesSearchCV(
 )
 optimizer.fit(x, y.ravel())
 score = optimizer.score(x, y.ravel())
-print(score)  # 0.680842816513834
+print(score)
 
 # %% Predict on testing set.
 y_test_hat = optimizer.predict(x_test)
 score_test = optimizer.score(x_test, y_test)
-print(score_test)  # 0.6625269570834621
+print(score_test)
 
 # %% Export.
 with open('raw/6_feature_rf_estimator_deep_forest.pkl', 'wb') as f:

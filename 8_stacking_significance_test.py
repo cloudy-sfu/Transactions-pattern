@@ -8,7 +8,7 @@ from itertools import combinations
 with open('raw/7_feature_rf_stacking_r2.pkl', 'rb') as f:
     results = pickle.load(f)
 results = pd.DataFrame(results)
-compared_columns = ['deep_forest', 'gbdt', 'rf', 'svr', 'xgb', 'method']
+compared_columns = ['deep_forest', 'gbdt', 'rf', 'svr', 'xgb', 'final_regressor']
 
 # %% Compare
 p_values = []
@@ -23,11 +23,11 @@ for i in range(len(compared_columns)):
                                   suffixes=(f'_{left_value}', f'_{right_value}'))
         t, p = ttest_rel(results_merged[f'validation_r2_{left_value}'], results_merged[f'validation_r2_{right_value}'])
         p_values.append({
-            'compared method': compared_columns[i],
-            'left value': left_value,
-            'right value': right_value,
+            'compared_column': compared_columns[i],
+            'left_value': left_value,
+            'right_value': right_value,
             't': t,
             'p': p
         })
 p_values = pd.DataFrame(p_values)
-p_values.to_excel('results/8_stacking_t.xlsx', index=False)
+p_values.to_csv('results/8_stacking_t.csv', index=False)

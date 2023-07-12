@@ -3,12 +3,16 @@ import numpy as np
 from sklearn.metrics import roc_curve, auc
 import matplotlib.pyplot as plt
 
-with open('raw/2_ts_testing_normalized.pkl', 'rb') as f:
+with open('raw/1_ts_testing_normalized.pkl', 'rb') as f:
     _, y_test_std = pickle.load(f)
-with open('raw/2_y_scaler.pkl', 'rb') as f:
+with open('raw/1_y_scaler.pkl', 'rb') as f:
     y_scaler = pickle.load(f)
 y_test = y_scaler.inverse_transform(y_test_std)
-thresholds = np.array([43.548, 52.4506, 64.6253])  # columns: is C or higher, is B or A, is A
+# y \in [0, 43.548)       -> D
+#       [43.548, 52.4506) -> C
+#       [52,4506, 64.6253)-> B
+#       [64.6253, 100]    -> A
+thresholds = np.array([43.548, 52.4506, 64.6253])
 y_test = y_test >= thresholds
 
 estimations = {
