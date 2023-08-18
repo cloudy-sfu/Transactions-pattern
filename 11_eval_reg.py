@@ -30,7 +30,6 @@ def main(predictions, output_path):
     scores = pd.DataFrame(scores)
     scores.to_csv(output_path, index=False)
 
-
 # %% Compare hybrid, time series, and cross-sectional methods.
 estimations = {
     'Hybrid': 'raw/10_feature_rf_hybrid_prediction.pkl',

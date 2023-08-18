@@ -30,10 +30,9 @@ fig, axes = plt.subplots(figsize=(14, 4), ncols=3,
 for method, filepath in estimations.items():
     with open(filepath, 'rb') as f:
         y_test_hat_std = pickle.load(f)
-    if len(y_test_hat_std.shape) == 1:
+    if y_test_hat_std.ndim == 1:
         y_test_hat_std = y_test_hat_std[:, np.newaxis]
     y_test_hat = y_scaler.inverse_transform(y_test_hat_std)
-    # plot
     for i in range(3):
         fpr, tpr, _ = roc_curve(y_test[:, i], y_test_hat)
         auc_ = auc(fpr, tpr)
