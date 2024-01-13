@@ -50,7 +50,7 @@ for left, right in combinations(y_test_hat.keys(), r=2):
     })
 
 # %% In classification.
-thresholds = np.array([[43.548], [52.4506], [64.6253]])  # same as `11_eval_clf.py`
+thresholds = np.array([[43.548], [52.4506], [64.6253]])  # same as `13_eval_clf.py`
 thresholds = y_scaler.transform(thresholds).flatten()
 y_test_clf = y_test >= thresholds
 n_classes = thresholds.shape[0]

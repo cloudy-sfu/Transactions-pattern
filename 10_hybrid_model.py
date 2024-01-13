@@ -13,7 +13,7 @@ with open('raw/1_ts_testing_normalized.pkl', 'rb') as f:
 # %% Averaging
 y_test_hat = np.mean([y_test_hat_stacking, y_test_hat_lstm.flatten()], axis=0)
 score_test = r2_score(y_test, y_test_hat)
-print(score_test)  # 0.7123625684249288
+print(score_test)
 
 # %% Export.
 with open('raw/10_feature_rf_hybrid_prediction.pkl', 'wb') as f:

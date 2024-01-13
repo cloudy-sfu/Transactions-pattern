@@ -24,12 +24,12 @@ optimizer = BayesSearchCV(
 )
 optimizer.fit(x, y.ravel())
 score = optimizer.score(x, y.ravel())
-print(score)  # 0.7865774455233596
+print(score)
 
 # %% Predict on testing set.
 y_test_hat = optimizer.predict(x_test)
 score_test = optimizer.score(x_test, y_test)
-print(score_test)  # 0.6862178984925713
+print(score_test)
 
 # %% Export.
 with open('raw/6_feature_rf_estimator_xgb.pkl', 'wb') as f:

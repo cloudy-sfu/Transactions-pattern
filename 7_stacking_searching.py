@@ -13,7 +13,7 @@ with open('raw/2_feature_rf_testing_normalized.pkl', 'rb') as f:
 
 # %% Load models.
 base_models = []
-base_model_names = ['deep_forest', 'gbdt', 'rf', 'svr', 'xgb']
+base_model_names = ['gbdt', 'rf', 'svr', 'xgb']
 for name in base_model_names:
     with open(f'raw/6_feature_rf_estimator_{name}.pkl', 'rb') as f:
         estimator = pickle.load(f)['Estimator']
@@ -38,8 +38,7 @@ k_fold = KFold(shuffle=True, random_state=924)  # RS for cross validation
 results = []
 models = []
 for name, final_model in final_models.items():
-    print(name)
-    for comb in tqdm(used_models_id):
+    for comb in tqdm(used_models_id, desc=name):
         used_models = [base_models[i] for i in range(n_) if comb[i]]
         stacking = StackingRegressor(used_models, final_estimator=final_model, n_jobs=-1,
                                      cv=k_fold.split(x_train))

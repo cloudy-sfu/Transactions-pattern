@@ -36,19 +36,18 @@ estimations = {
     'Time series': 'raw/4_estimator_lstm_prediction.pkl',
     'Cross-sectional': 'raw/9_feature_rf_stacking_prediction.pkl',
 }
-scores_path = 'results/11_testing_r2_hybrid.csv'
+scores_path = 'results/13_testing_r2_hybrid.csv'
 main(estimations, scores_path)
 
 # %% Compare base models and stacking.
 estimations = {
-    'Deep forest': 'raw/6_feature_rf_estimator_deep_forest_prediction.pkl',
     'GBDT': 'raw/6_feature_rf_estimator_gbdt_prediction.pkl',
     'Random forest': 'raw/6_feature_rf_estimator_rf_prediction.pkl',
     'SVR': 'raw/6_feature_rf_estimator_svr_prediction.pkl',
     'XGBoost': 'raw/6_feature_rf_estimator_xgb_prediction.pkl',
     'Stacking': 'raw/9_feature_rf_stacking_prediction.pkl',
 }
-scores_path = 'results/11_testing_r2_stacking.csv'
+scores_path = 'results/13_testing_r2_stacking.csv'
 main(estimations, scores_path)
 
 # %% Compare feature selection methods.
@@ -56,5 +55,5 @@ estimations = {
     'yu2003': 'raw/12_feature_yu2003_stacking_prediction.pkl',
     'Random forest': 'raw/9_feature_rf_stacking_prediction.pkl',
 }
-scores_path = 'results/11_testing_r2_features.csv'
+scores_path = 'results/13_testing_r2_features.csv'
 main(estimations, scores_path)

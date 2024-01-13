@@ -18,15 +18,15 @@ y_test = y_test >= thresholds
 estimations = {
     'yu2003+Stacking': 'raw/12_feature_yu2003_stacking_prediction.pkl',
     'RF+Stacking': 'raw/9_feature_rf_stacking_prediction.pkl',
-    'LSTM': 'raw/9_feature_rf_stacking_prediction.pkl',
-    'LSTM & RF+Stacking': 'raw/10_feature_rf_hybrid_prediction.pkl',
+    'LSTM': 'raw/4_estimator_lstm_prediction.pkl',
+    'RF+Stacking+LSTM': 'raw/10_feature_rf_hybrid_prediction.pkl',
 }
-figure_path = 'results/11_testing_roc.eps'
+figure_path = 'results/13_testing_roc.pdf'
 
 # Function
 scores = []
-fig, axes = plt.subplots(figsize=(14, 4), ncols=3,
-                         gridspec_kw=dict(left=0.05, right=0.98, bottom=0.15, top=0.96, wspace=0.18))
+fig, axes = plt.subplots(figsize=(14, 4), ncols=3, gridspec_kw=dict(
+    left=0.05, right=0.98, bottom=0.15, top=0.96, wspace=0.18))
 for method, filepath in estimations.items():
     with open(filepath, 'rb') as f:
         y_test_hat_std = pickle.load(f)

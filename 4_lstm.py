@@ -10,18 +10,22 @@ with open('raw/1_ts_testing_normalized.pkl', 'rb') as f:
     x_test, y_test = pickle.load(f)
 
 # %% Train and test.
+tf.keras.utils.set_random_seed(2449)
 l0 = tf.keras.layers.Input(shape=(x.shape[1], x.shape[2]))
-_, l1_h_t, _ = tf.keras.layers.LSTM(64, return_state=True)(l0)
-l2 = tf.keras.layers.Dense(128, activation='relu')(l1_h_t)
-l3 = tf.keras.layers.Dense(128, activation='relu')(l2)
-l5 = tf.keras.layers.Dense(32, activation='relu')(l3)
-l6 = tf.keras.layers.Dense(1, activation='linear')(l5)
-my_model = tf.keras.Model(l0, l6)
-my_model.compile(optimizer='adam', loss='mse')
+_, l1_h_t, _ = tf.keras.layers.LSTM(8, kernel_regularizer=tf.
+                                    keras.regularizers.L2(0.01), return_state=True)(l0)
+l2 = tf.keras.layers.Dense(8, activation='relu', kernel_regularizer=tf.
+                           keras.regularizers.L2(0.01))(l1_h_t)
+l3 = tf.keras.layers.Dense(1, activation='linear')(l2)
+my_model = tf.keras.Model(l0, l3)
+my_model.compile(loss='mse',
+    optimizer=tf.keras.optimizers.Adam(learning_rate=0.005, beta_1=0.95))
 tensorboard = tf.keras.callbacks.TensorBoard(log_dir=f'raw/4_tensorboard/')
 stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=60)
-save_best = tf.keras.callbacks.ModelCheckpoint('raw/4_lstm.h5', monitor='val_loss', save_best_only=True)
-x_train, x_valid, y_train, y_valid = train_test_split(x, y, train_size=0.8, random_state=974238)
+save_best = tf.keras.callbacks.ModelCheckpoint('raw/4_lstm.h5', monitor='val_loss',
+                                               save_best_only=True)
+x_train, x_valid, y_train, y_valid = train_test_split(x, y, train_size=0.8,
+                                                      random_state=974238)
 history = my_model.fit(
     x_train, y_train, validation_data=(x_valid, y_valid),
     epochs=1000, batch_size=1200, callbacks=[stop_early, save_best, tensorboard]

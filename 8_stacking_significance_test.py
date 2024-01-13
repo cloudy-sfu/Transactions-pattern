@@ -8,7 +8,7 @@ from itertools import combinations
 with open('raw/7_feature_rf_stacking_r2.pkl', 'rb') as f:
     results = pickle.load(f)
 results = pd.DataFrame(results)
-compared_columns = ['deep_forest', 'gbdt', 'rf', 'svr', 'xgb', 'final_regressor']
+compared_columns = ['gbdt', 'rf', 'svr', 'xgb', 'method']
 
 # %% Compare
 p_values = []

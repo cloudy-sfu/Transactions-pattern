@@ -1,4 +1,4 @@
-# Transactions business performance
+# Transactions pattern
  Evaluating small enterprises' business performance based on transactions in the supply chain
 
 ![](https://shields.io/badge/dependencies-Python_3.11-blue)

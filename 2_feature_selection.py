@@ -38,7 +38,7 @@ for i, ccp_alpha, depth in zip(range(len(depths)), path.ccp_alphas, depths):
         ax.annotate(f'({round(ccp_alpha, 4)}, {round(depth, 0)})', xy=(ccp_alpha, depth), textcoords='data')
 ax.set_xlabel("CCP alpha")
 ax.set_ylabel("Tree's depth")
-f.savefig('results/2_ccp_alpha_&_depth.eps')
+f.savefig('results/2_ccp_alpha_depth.pdf')
 plt.close(f)
 # Result: Search max_depth in random forest in interval [2, 20], and ccp_alpha in interval [0, 0.0279].
 

@@ -6,7 +6,7 @@ with open('raw/7_feature_rf_stacking_r2.pkl', 'rb') as f:
     results = pickle.load(f)
 results = pd.DataFrame(results)
 b = results.loc[
-    (~results['deep_forest']) & (results['gbdt']) & (~results['rf']) & (results['svr']) & (results['xgb']) &
+    (~results['gbdt']) & (~results['rf']) & (results['svr']) & (results['xgb']) &
     (results['method'] == 'lr')
 ].index
 assert len(b) == 1
@@ -22,12 +22,12 @@ with open('raw/2_feature_rf_testing_normalized.pkl', 'rb') as f:
 
 # %% Get training score.
 score = optimizer.score(x, y.ravel())
-print(score)  # 0.7719034330549572
+print(score)
 
 # %% Predict on testing set.
 y_test_hat = optimizer.predict(x_test)
 score_test = optimizer.score(x_test, y_test.ravel())
-print(score_test)  # 0.6955534593528232
+print(score_test)
 
 # %% Export.
 with open('raw/9_feature_rf_stacking.pkl', 'wb') as f:
